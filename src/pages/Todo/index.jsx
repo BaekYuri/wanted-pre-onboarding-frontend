@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { myAxios } from "../../lib/myAxios";
 import TodoItem from "../../components/TodoItem";
 import { Form, Button, ListGroup, InputGroup } from "react-bootstrap";
@@ -21,78 +21,89 @@ const Todo = ()=>{
 
 
     async function createTodo(todo){
-        let result = await myAxios.post("/todos",
-        {
-            todo:todo
-        },
-        {
-            headers:{
-                Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+        try{
+            let result = await myAxios.post("/todos",
+            {
+                todo:todo
+            },
+            {
+                headers:{
+                    Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+                }
             }
-        }
-        );
+            );
 
-        if(result.status===201){
+            
             console.log("생성되었습니다.");
             setTodos([...todos, result.data]);
-            
+        }catch(e){
+            console.log("생성에 실패하였습니다.");
         }
     
     }
 
     async function getTodos(){
-        let result = await myAxios.get("/todos",
-        {
-            headers:{
-                Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+        try{
+            let result = await myAxios.get("/todos",
+            {
+                headers:{
+                    Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+                }
             }
-        }
-        );
-
-        if(result.status===200){
+            );
             setTodos(result.data);
+        }catch(e){
+            console.log("목록을 불러오는 데에 실패하였습니다.");
         }
-
+        
     }
 
     async function updateTodo(id, todo, isCompleted, idx){
-        let result = await myAxios.put(`/todos/${id}`,
+        try{
+            let result = await myAxios.put(`/todos/${id}`,
         
-        {
-            todo:todo,
-            isCompleted:isCompleted,
-            
-        },
-        {
-            headers:{
-                Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+            {
+                todo:todo,
+                isCompleted:isCompleted,
+                
             },
-        },
-        );
+            {
+                headers:{
+                    Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+                },
+            },
+            );
 
-        if(result.status===200){
             console.log("수정 성공");
             let tempTodo = [...todos];
             tempTodo[idx] = result.data;
-            console.log(tempTodo);
             setTodos(tempTodo);
+
+        }catch(e){
+            console.log("수정 실패");
         }
+        
+
     }
 
     async function deleteTodo(id, idx){
-        let result = await myAxios.delete(`/todos/${id}`,
-        {
-            headers:{
-                Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
-            }
-        });
+        try{
+            let result = await myAxios.delete(`/todos/${id}`,
+            {
+                headers:{
+                    Authorization:`bearer ${localStorage.getItem("wanted-login")}`,
+                }
+            });
 
-        if(result.status===204){
+            
             console.log("삭제 성공");
             let tempTodo = [...todos];
             tempTodo.splice(idx, 1);
             setTodos(tempTodo);
+        }catch(e){
+            console.log("삭제 실패");
         }
+        
     }
 
     return (

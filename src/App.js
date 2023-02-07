@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Routes, Route,} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import MyHeader from "./components/MyHeader";
 import SignIn from "./pages/SignIn";
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
@@ -10,7 +11,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <header className="App-header"/>
+      <MyHeader className="App-header"/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/signup" element={<SignUp/>}/>

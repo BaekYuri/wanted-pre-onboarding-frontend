@@ -9,9 +9,8 @@ const TodoItem = (props)=>{
 
     return (
         <ListGroupItem>
-            {/* <label> */}
                 <InputGroup>
-                <Form.Check inline type="checkbox" checked={todoItem.isCompleted} onChange={(e)=>{updateTodo(todoItem.id, todoItem.todo, Boolean(e.target.checked), idx);}}/>
+                    <Form.Check inline type="checkbox" checked={todoItem.isCompleted} onChange={(e)=>{updateTodo(todoItem.id, todoItem.todo, Boolean(e.target.checked), idx);}}/>
                 {
                     visible?
                     
@@ -37,7 +36,6 @@ const TodoItem = (props)=>{
                     </>
                 }
                 </InputGroup>
-            {/* </label> */}
             
         </ListGroupItem>
     );
