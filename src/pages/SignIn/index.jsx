@@ -4,7 +4,8 @@ import { myAxios } from "../../lib/myAxios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Card } from "react-bootstrap";
 
-const SignIn = () =>{
+const SignIn = (props) =>{
+    const {setIsLogin} = props;
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [isValidEmail, setIsValidEmail] = useState(false);
@@ -14,6 +15,7 @@ const SignIn = () =>{
     useEffect(()=>{
 
         if(localStorage.getItem("wanted-login")){
+            setIsLogin(true);
             navigate("/todo");
         }
 
@@ -25,6 +27,7 @@ const SignIn = () =>{
 
             console.log("로그인 되었습니다.");
             localStorage.setItem("wanted-login", result.data.access_token);
+            setIsLogin(true);
             navigate("/todo");
         }catch(e){
             console.log("아이디와 비밀번호를 확인해주세요.");

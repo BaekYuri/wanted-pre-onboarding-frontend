@@ -1,10 +1,10 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 
-const MyHeader = () =>{
-    const [isLogin, setIsLogin] = useState(false);
+const MyHeader = (props) =>{
+    const {isLogin, setIsLogin} = props;
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -13,7 +13,7 @@ const MyHeader = () =>{
         }
     },[]);
 
-
+    
     function logout(){
         localStorage.removeItem("wanted-login");
         setIsLogin(false);
