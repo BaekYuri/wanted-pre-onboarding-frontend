@@ -364,3 +364,23 @@ npm start
         
     }
     ```
+
+## 3. 기타
+- 헤더
+    - 간단하게 헤더 겸 네비게이션바 컴포넌트 작성
+    - jwt 토큰 여부에 따라 로그인, 로그아웃 활성화 다르게 만듬
+- axios custom
+    - baseURL 및 header 등은 공통되는 부분이 있기 때문에 axios를 커스텀하여 사용
+    ```
+    // ./src/lib/myAxios.js
+
+    import axios from "axios";
+
+    export const myAxios = axios.create({
+        baseURL : "https://pre-onboarding-selection-task.shop",
+        // baseURL : "http://localhost:8000",
+        headers:{
+            "Content-Type" : "application/json",
+        }
+    });
+    ```
